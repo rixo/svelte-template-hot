@@ -7,8 +7,7 @@ import staticFiles from 'rollup-plugin-static-files';
 
 const nollup = !!process.env.NOLLUP
 const production = !nollup && !process.env.ROLLUP_WATCH;
-
-const hot = !!nollup
+const hot = nollup
 
 export default {
 	input: 'src/main.js',
@@ -24,7 +23,7 @@ export default {
     // NOTE needs to be before svelte(...) because we intend to overwrite
     // public/bundle.css stub -- my guess is there is a better way to handle
     // css, any suggestion welcome
-    production &&
+    !nollup &&
       staticFiles({
         include: ['./public'],
       }),

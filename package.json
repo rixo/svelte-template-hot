@@ -22,7 +22,7 @@
     "autobuild": "rollup -c -w",
     "dev:rollup": "run-p start:dev autobuild",
     "dev": "NOLLUP=1 nollup",
-    "start": "sirv public --single",
-    "start:dev": "sirv public --single --dev"
+    "start": "sirv dist --single",
+    "start:dev": "sirv dist --single --dev"
   }
 }
