@@ -9,7 +9,7 @@ This is a project template for [Svelte](https://svelte.dev) apps. It lives at ht
 To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-npx degit sveltejs/template svelte-app
+npx degit rixo/svelte-template-hot svelte-app
 cd svelte-app
 ```
 
@@ -25,10 +25,16 @@ cd svelte-app
 npm install
 ```
 
-...then start [Rollup](https://rollupjs.org):
+...then start [Nollup](https://github.com/PepsRyuu/nollup) for HMR support:
 
 ```bash
 npm run dev
+```
+
+...or start [Rollup](https://rollupjs.org) with livereload:
+
+```bash
+npm run dev:rollup
 ```
 
 Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.

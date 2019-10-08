@@ -3,8 +3,12 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
+const staticFiles = require('rollup-plugin-static-files')
 
-const production = !process.env.ROLLUP_WATCH;
+const nollup = !!process.env.NOLLUP
+const production = !nollup && !process.env.ROLLUP_WATCH;
+
+const hot = !!nollup
 
 export default {
 	input: 'src/main.js',
@@ -12,17 +16,37 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/bundle.js'
+    dir: 'dist',
+    entryFileNames: '[name].[hash].js',
+    assetFileNames: '[name].[hash][extname]',
 	},
 	plugins: [
+    // NOTE needs to be before svelte(...) because we intend to overwrite
+    // public/bundle.css stub -- my guess is there is a better way to handle
+    // css, any suggestion welcome
+    production &&
+      staticFiles({
+        include: ['./public'],
+      }),
+
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
 			// we'll extract any component CSS out into
 			// a separate file — better for performance
-			css: css => {
-				css.write('public/bundle.css');
-			}
+      ...(!nollup && !hot && {
+        css: css => css.write('dist/bundle.css'),
+      }),
+			hot: hot && {
+        // `optimistic` will try to recover from runtime errors during component
+        // init (i.e. constructor). This kind of error can be more safely
+        // recovered from when your components are more pure. Otherwise, it can
+        // get really funky.
+        //
+        // Compile error are _always_ recovered from with Nollup.
+        //
+        optimistic: true,
+      },
 		}),
 
 		// If you have external dependencies installed from
@@ -38,7 +62,7 @@ export default {
 
 		// Watch the `public` directory and refresh the
 		// browser on changes when not in production
-		!production && livereload('public'),
+    // !production && !hot && livereload('public'),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
