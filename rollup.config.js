@@ -3,7 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
-const staticFiles = require('rollup-plugin-static-files')
+import staticFiles from 'rollup-plugin-static-files';
 
 const nollup = !!process.env.NOLLUP
 const production = !nollup && !process.env.ROLLUP_WATCH;
