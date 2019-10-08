@@ -10,7 +10,7 @@
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-static-files": "^0.0.1",
-    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-svelte-hot": "0.0.1",
     "rollup-plugin-terser": "^4.0.4",
     "svelte": "^3.0.0"
   },

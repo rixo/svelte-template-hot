@@ -4,12 +4,12 @@
 
 # svelte app
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+This is a clone of [Svelte](https://svelte.dev) [official template](https://github.com/sveltejs/template) for Rollup with just what's needed to add [HMR support](https://github.com/rixo/rollup-plugin-svelte-hot) for HMR with [Nollup](https://github.com/PepsRyuu/nollup). It lives at https://github.com/rixo/svelte-template-hot.
 
 To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-npx degit rixo/svelte-template-hot svelte-app
+npx degit rixo/svelte-template-hot svelte-hot-app
 cd svelte-app
 ```
 
