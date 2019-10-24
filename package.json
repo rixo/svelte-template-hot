@@ -2,11 +2,14 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "devDependencies": {
+    "nollup": "^0.8.2",
     "rollup": "^1.12.0",
     "rollup-plugin-commonjs": "^10.0.0",
+    "rollup-plugin-hot": "^0.0.2",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-svelte-hot": "^0.0.4",
     "rollup-plugin-terser": "^5.1.2",
     "svelte": "^3.0.0"
   },
@@ -15,7 +18,10 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w",
+    "dev:rollup": "rollup -c -w",
+    "dev:livereload": "LIVERELOAD=1 rollup -c -w",
+    "dev:nollup": "NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
+    "dev": "npm run dev:rollup",
     "start": "sirv public --single",
     "start:dev": "sirv public --single --dev"
   }
