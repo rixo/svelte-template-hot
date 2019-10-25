@@ -32,7 +32,7 @@ Nollup implements the shortest possible path from a file change to the module re
 
 The Rollup plugin on the other hand is still little more than a proof of concept by now, but it has better sourcemap support and error reporting.
 
-Support for both Nollup and Rollup HMR is provided by (also pretty experimental) [rollup-plugin-svelte-hot](https://github.com/rixo/rollup-plugin-svelte-hot). Please report issues regarding HMR in [this plugin's tracker](https://github.com/rixo/rollup-plugin-svelte-hot/issues). Or [this project](https://github.com/rixo/svelte-template-hot/issues) might make more sense. You be the judge.
+Support for both Nollup and Rollup HMR is provided by (also pretty experimental) [rollup-plugin-svelte-hot](https://github.com/rixo/rollup-plugin-svelte-hot). Please report issues regarding HMR in [this plugin's tracker](https://github.com/rixo/rollup-plugin-svelte-hot/issues). Or [the current project](https://github.com/rixo/svelte-template-hot/issues) might make more sense. You be the judge.
 
 ### Start HMR server with Nollup
 
