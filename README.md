@@ -1,71 +1,65 @@
-*Psst — looking for a shareable component template? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+# Svelte Template Hot
 
----
+This is a copy of official [Svelte template](https://github.com/sveltejs/template) with added HMR support (more or less experimental). It lives at https://github.com/rixo/svelte-template-hot.
 
-# svelte app
+Progress of Svelte HMR support can be tracked in [this issue](https://github.com/sveltejs/svelte/issues/3632).
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
+This template aims to remain as close to the official template as possible. Please refer to official docs for general usage. For HMR specific stuff, see bellow.
+
+## Installation
 
 To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
 
 ```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
-
-## Get started
-
-Install the dependencies...
-
-```bash
+npx degit rixo/svelte-template-hot svelte-app
 cd svelte-app
 npm install
 ```
 
-...then start [Rollup](https://rollupjs.org):
+## Quick start
 
 ```bash
 npm run dev
 ```
 
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
+Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and... Eyeball!
 
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
+## Usage
 
+HMR is supported both with [Nollup](https://github.com/PepsRyuu/nollup) or with Rollup itself with (very experimental) [rollup-plugin-hot](https://github.com/rixo/rollup-plugin-hot).
 
-## Deploying to the web
+Nollup implements the shortest possible path from a file change to the module reload in the browser and is all in-memory. Said otherwise, it is insanely fast. Also, it has been around for some time so it is quite battle tested already.
 
-### With [now](https://zeit.co/now)
+The Rollup plugin on the other hand is still little more than a proof of concept by now, but it has better sourcemap support and error reporting.
 
-Install `now` if you haven't already:
+Support for both Nollup and Rollup HMR is provided by (also pretty experimental) [rollup-plugin-svelte-hot](https://github.com/rixo/rollup-plugin-svelte-hot). Please report issues regarding HMR in [this plugin's tracker](https://github.com/rixo/rollup-plugin-svelte-hot/issues). Or [this project](https://github.com/rixo/svelte-template-hot/issues) might make more sense. You be the judge.
 
-```bash
-npm install -g now
-```
-
-Then, from within your project folder:
+### Start HMR server with Nollup
 
 ```bash
-cd public
-now
+npm run dev:nollup
 ```
 
-As an alternative, use the [Now desktop client](https://zeit.co/download) and simply drag the unzipped project folder to the taskbar icon.
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
+### Start Rollup with HMR support
 
 ```bash
-npm install -g surge
+npm run dev:rollup
 ```
 
-Then, from within your project folder:
+### Start with LiveReload (no HMR)
+
+This is the default `dev` of official template.
 
 ```bash
-npm run build
-surge public
+npm run dev:livereload
 ```
+
+### Start with default method
+
+Rollup HMR is also aliased as `dev` so you can simply run:
+
+```bash
+npm run dev
+```
+
+You can change the default `dev` script to your preferred method in the `scripts` section of `package.json`.
