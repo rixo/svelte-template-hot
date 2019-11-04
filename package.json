@@ -1,5 +1,5 @@
 {
-  "name": "svelte-template-hot",
+  "name": "svelte-app",
   "version": "1.0.0",
   "devDependencies": {
     "nollup": "^0.8.2",
