@@ -67,7 +67,7 @@ export default {
 
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
-    !production && !nollup && rollup_start_dev,
+    !production && !test && !nollup && rollup_start_dev,
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
