@@ -1,7 +1,8 @@
 {
   "name": "svelte-template-hot",
   "version": "1.0.0",
-  "devDependencies": {
+  "dependencies": {
+    "sirv-cli": "^0.4.4",
     "nollup": "^0.8.2",
     "rollup": "^1.26.3",
     "rollup-plugin-commonjs": "^10.0.0",
@@ -12,9 +13,6 @@
     "rollup-plugin-svelte-hot": "^0.0.8",
     "rollup-plugin-terser": "^5.1.2",
     "svelte": "^3.0.0"
-  },
-  "dependencies": {
-    "sirv-cli": "^0.4.4"
   },
   "scripts": {
     "build": "rollup -c",
