@@ -84,6 +84,9 @@ export default {
       nollup,
       public: abs`public`,
       inMemory,
+      autocreate: !nollup && {
+        include: 'src/**/*',
+      },
     }),
   ],
   watch: {
