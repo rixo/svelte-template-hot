@@ -63,7 +63,17 @@ export default {
     // instead of npm run dev), minify
     production && terser(),
 
-    hot && !nollup && hmr({ public: 'public', inMemory: true }),
+    hmr({
+      enabled: hot,
+      // Nollup compat: rewrites `import.meta.hot` to `module.hot`
+      // in bundle sources
+      nollup,
+      public: `public`,
+      inMemory: true,
+      autocreate: !nollup && {
+        include: 'src/**/*',
+      },
+    }),
   ],
   watch: {
     clearScreen: false,
