@@ -36,6 +36,9 @@ export default {
         // optimistic will try to recover from runtime
         // errors during component init
         optimistic: true,
+        // turn on to disable preservation of local component
+        // state -- i.e. non exported `let` variables
+        noPreserveState: false,
       },
     }),
 
