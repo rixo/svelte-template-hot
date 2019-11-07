@@ -49,6 +49,8 @@ export default {
         // optimistic will try to recover from runtime
         // errors during component init
         optimistic: true,
+        // turn on to disable preservation of local component
+        // state -- i.e. non exported `let` variables
         noPreserveState,
       },
     }),
@@ -60,8 +62,7 @@ export default {
     // https://github.com/rollup/rollup-plugin-commonjs
     resolve({
       browser: true,
-      dedupe: importee =>
-        importee === 'svelte' || importee.startsWith('svelte/'),
+      // rollup-plugin-svelte-hot automatically resolves & dedup svelte
     }),
     commonjs(),
 
@@ -84,7 +85,7 @@ export default {
       nollup,
       public: abs`public`,
       inMemory,
-      autocreate: !nollup && {
+      autocreate: !test && !nollup && {
         include: 'src/**/*',
       },
     }),
