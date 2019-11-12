@@ -2,6 +2,7 @@ import svelte from 'rollup-plugin-svelte-hot'
 import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
+import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser'
 import hmr from 'rollup-plugin-hot'
 import { fileRouter } from 'svelte-filerouter'
@@ -13,6 +14,7 @@ const nollup = !noHot && !!process.env.NOLLUP
 const dev = nollup || process.env.ROLLUP_WATCH
 const production = !dev
 const hot = dev && !noHot
+const legacy = !!process.env.LEGACY;
 
 export default {
   input: 'src/main.js',
@@ -59,6 +61,25 @@ export default {
       // rollup-plugin-svelte-hot automatically resolves & dedup svelte
     }),
     commonjs(),
+
+    // NOTE this does not work with hot plugin currently
+    legacy && babel({
+      extensions: ['.js', '.mjs', '.html', '.svelte'],
+      runtimeHelpers: true,
+      exclude: ['node_modules/@babel/**'],
+      presets: [
+        ['@babel/preset-env', {
+          targets: '> 0.25%, not dead'
+        }]
+      ],
+      plugins: [
+        '@babel/plugin-syntax-dynamic-import',
+        '@babel/plugin-syntax-import-meta',
+        ['@babel/plugin-transform-runtime', {
+          useESModules: true
+        }]
+      ]
+    }),
 
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
