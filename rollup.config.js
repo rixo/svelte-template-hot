@@ -4,6 +4,8 @@ import commonjs from 'rollup-plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr from 'rollup-plugin-hot'
+import { fileRouter } from 'svelte-filerouter'
+
 import rollup_start_dev from './rollup_start_dev'
 
 const noHot = !!process.env.LIVERELOAD
@@ -16,11 +18,16 @@ export default {
   input: 'src/main.js',
   output: {
     sourcemap: true,
-    format: 'iife',
+    format: 'esm',
     name: 'app',
-    file: nollup ? 'bundle.js' : 'public/bundle.js',
+    dir: nollup ? 'bundle' : 'public/bundle',
   },
   plugins: [
+    fileRouter({
+      unknownPropWarnings: false,
+      dynamicImports: true,
+    }),
+
     svelte({
       // enable run-time checks when not in production
       dev: !production,
@@ -75,6 +82,7 @@ export default {
       autocreate: !nollup && {
         include: 'src/**/*',
       },
+      loaderFile: 'main.js',
     }),
   ],
   watch: {
