@@ -3,14 +3,20 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
-import hmr from 'rollup-plugin-hot'
+import hmr, { autoCreate } from 'rollup-plugin-hot'
 import rollup_start_dev from './rollup_start_dev'
 
-const noHot = !!process.env.LIVERELOAD
-const nollup = !noHot && !!process.env.NOLLUP
-const dev = nollup || process.env.ROLLUP_WATCH
+const watch = !!process.env.ROLLUP_WATCH
+// NOTE The NOLLUP env variable is picked by various HMR plugins to switch
+// in compat mode. You should not change its name (and set the env variable
+// yourself if you launch nollup with custom comands).
+const nollup = !!process.env.NOLLUP
+const useLiveReload = !!process.env.LIVERELOAD
+
+const dev = watch || nollup || useLiveReload
 const production = !dev
-const hot = dev && !noHot
+
+const hot = nollup || (watch && !useLiveReload)
 
 export default {
   input: 'src/main.js',
@@ -32,7 +38,6 @@ export default {
         },
       }),
       hot: hot && {
-        nollup,
         // optimistic will try to recover from runtime
         // errors during component init
         optimistic: true,
@@ -59,22 +64,25 @@ export default {
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
-    !production && !hot && livereload('public'),
+    useLiveReload && livereload('public'),
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
     production && terser(),
 
-    hmr({
-      enabled: hot,
-      // Nollup compat: rewrites `import.meta.hot` to `module.hot`
-      // in bundle sources
-      nollup,
+    // Automatically create missing imported files. This helps keeping
+    // the HMR server alive, because Rollup watch tends to crash and
+    // hang indefinitely after you've tried to import a missing file.
+    hot && autoCreate({
+      include: 'src/**/*',
+      // Set false to prevent recreating a file that has just been
+      // deleted (Rollup watch will crash when you do that though).
+      recreate: true,
+    }),
+
+    hot && !nollup && hmr({
       public: `public`,
       inMemory: true,
-      autocreate: !nollup && {
-        include: 'src/**/*',
-      },
     }),
   ],
   watch: {
