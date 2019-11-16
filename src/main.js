@@ -1,10 +1,26 @@
-import App from './App.svelte';
+import StateRouter from 'abstract-state-router'
+import domready from 'domready'
+import SvelteRenderer from 'svelte-state-renderer'
 
-const app = new App({
-	target: document.body,
-	props: {
-		name: 'world'
-	}
-});
+import login from './login/login.js'
+import app from './app/app.js'
 
-export default app;
+domready(function() {
+  const stateRouter = StateRouter(
+    SvelteRenderer(),
+    document.querySelector('body')
+  )
+
+  const register = (...handlers) =>
+    handlers.forEach(handler => handler(stateRouter, register))
+
+  register(login, app)
+
+  stateRouter.evaluateCurrentRoute('login')
+
+  if (import.meta.hot) {
+    import.meta.hot.accept(() => {
+      document.querySelectorAll('body *').forEach(el => el.remove())
+    })
+  }
+})

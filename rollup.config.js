@@ -22,9 +22,10 @@ export default {
   input: 'src/main.js',
   output: {
     sourcemap: true,
-    format: 'iife',
+    format: 'esm',
     name: 'app',
-    file: nollup ? 'bundle.js' : 'public/bundle.js',
+    // file: nollup ? 'bundle.js' : 'public/bundle.js',
+    dir: nollup ? 'bundle' : 'public/bundle',
   },
   plugins: [
     svelte({
