@@ -4,7 +4,7 @@
 
   const { asr } = getRouterContext()
 
-  export let username
+  let username
 
   const onSubmit = () => {
     model.saveCurrentUser(username)
