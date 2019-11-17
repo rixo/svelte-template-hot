@@ -1,11 +1,15 @@
 <script>
-  import { createEventDispatcher } from 'svelte'
+  import { getRouterContext } from 'svelte-state-renderer'
+  import model from 'model.js'
+
+  const { asr } = getRouterContext()
 
   export let username
 
-  const fire = createEventDispatcher()
-
-  const onSubmit = () => fire('login', { username })
+  const onSubmit = () => {
+    model.saveCurrentUser(username)
+    asr.go('app')
+  }
 </script>
 
 <div class="container-fluid">

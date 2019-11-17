@@ -84,6 +84,7 @@ export default {
     hot && !nollup && hmr({
       public: `public`,
       inMemory: true,
+      loaderFile: 'main.js',
     }),
   ],
   watch: {

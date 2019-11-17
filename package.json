@@ -22,6 +22,7 @@
     "sirv-cli": "^0.4.4"
   },
   "scripts": {
+    "clean": "rm -rf public/bundle*",
     "build": "rollup -c",
     "dev:rollup": "rollup -c -w",
     "dev:livereload": "LIVERELOAD=1 rollup -c -w",

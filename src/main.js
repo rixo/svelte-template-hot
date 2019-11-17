@@ -2,8 +2,8 @@ import StateRouter from 'abstract-state-router'
 import domready from 'domready'
 import SvelteRenderer from 'svelte-state-renderer'
 
-import login from './login/login.js'
-import app from './app/app.js'
+import login from './login/login.states.js'
+import app from './app/app.states.js'
 
 domready(function() {
   const stateRouter = StateRouter(
@@ -11,10 +11,7 @@ domready(function() {
     document.querySelector('body')
   )
 
-  const register = (...handlers) =>
-    handlers.forEach(handler => handler(stateRouter, register))
-
-  register(login, app)
+  stateRouter.addStates(login, app)
 
   stateRouter.evaluateCurrentRoute('login')
 

@@ -1,6 +1,16 @@
-<script>
-  import { createEventDispatcher } from 'svelte'
+<script context="module">
+  import model from 'model.js'
+  import { callAsync } from 'utils'
 
+  export const resolve = async (data, { topicId }) => ({
+    topic: await callAsync(model.getTopic, topicId),
+    tasks: await callAsync(model.getTasks, topicId),
+    topicId,
+  })
+</script>
+
+<script>
+  export let topicId
   export let topic
   export let tasks = []
 
@@ -8,15 +18,37 @@
 
   const ifThenStr = (test, result) => (test ? result : '')
 
-  export function complete(taskIndex) {
-    this.setTaskDone(taskIndex, true)
+  const createNewTask = taskName => {
+    const task = model.saveTask(topicId, taskName)
+    tasks = [...tasks, task]
   }
 
-  export function restore(taskIndex) {
-    this.setTaskDone(taskIndex, false)
+  const setTaskDone = (index, done) => {
+    tasks[index].done = done
+    model.saveTasks(topicId, tasks)
   }
 
-  const fire = createEventDispatcher()
+  const complete = taskIndex => {
+    setTaskDone(taskIndex, true)
+  }
+
+  const restore = taskIndex => {
+    setTaskDone(taskIndex, false)
+  }
+
+  const remove = taskIndex => {
+    const tasksWithIndexElementRemoved = tasks.slice()
+    tasksWithIndexElementRemoved.splice(taskIndex, 1)
+    tasks = tasksWithIndexElementRemoved
+    model.saveTasks(topicId, tasksWithIndexElementRemoved)
+  }
+
+  const onNewTaskKeyup = e => {
+    if (e.keyCode === 13 && newTaskName) {
+      createNewTask(newTaskName)
+      newTaskName = ''
+    }
+  }
 </script>
 
 <style>
@@ -63,9 +95,7 @@
           {/if}
         </td>
         <td>
-          <button
-            class="btn btn-danger full-width"
-            on:click={() => fire('remove', i)}>
+          <button class="btn btn-danger full-width" on:click={() => remove(i)}>
             Remove
           </button>
         </td>
@@ -78,8 +108,10 @@
           class="form-control add-new-task"
           placeholder="New task"
           bind:value={newTaskName}
-          on:keyup={() => fire('newTaskKeyup')} />
+          on:keyup={onNewTaskKeyup} />
       </td>
     </tr>
   </tbody>
 </table>
+
+<slot />
