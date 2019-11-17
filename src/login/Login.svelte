@@ -1,8 +1,7 @@
 <script>
-  import { getRouterContext } from 'svelte-state-renderer'
   import model from 'model.js'
 
-  const { asr } = getRouterContext()
+  export let asr
 
   let username
 

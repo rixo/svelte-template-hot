@@ -1,6 +1,5 @@
 <script context="module">
   import { tick } from 'svelte'
-  import { getRouterContext } from 'svelte-state-renderer'
   import model from 'model.js'
   import { resolveAll } from 'utils'
 
@@ -11,8 +10,7 @@
 </script>
 
 <script>
-  const { asr } = getRouterContext()
-
+  export let asr
   export let topics = []
 
   const hiddenIfNot = bool => (bool ? '' : 'hidden')
