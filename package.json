@@ -8,7 +8,7 @@
     "rollup-plugin-hot": "^0.0.4-5",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
-    "rollup-plugin-svelte-hot": "0.0.9-1",
+    "rollup-plugin-svelte-hot": "0.0.9-4",
     "rollup-plugin-terser": "^5.1.2",
     "svelte": "^3.0.0"
   },
@@ -16,6 +16,7 @@
     "sirv-cli": "^0.4.4"
   },
   "scripts": {
+    "clean": "rm -rf public/bundle*",
     "build": "rollup -c",
     "dev:rollup": "rollup -c -w",
     "dev:livereload": "LIVERELOAD=1 rollup -c -w",
