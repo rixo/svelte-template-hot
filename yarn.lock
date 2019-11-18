@@ -1302,6 +1302,14 @@ rollup-plugin-hot@0.0.4-3:
     express "^4.17.1"
     ws "^7.1.2"
 
+rollup-plugin-hot@^0.0.4-5:
+  version "0.0.4-5"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-hot/-/rollup-plugin-hot-0.0.4-5.tgz#23ea98fa050d7f9947ab518ceedabafaf3987c87"
+  dependencies:
+    cors "^2.8.5"
+    express "^4.17.1"
+    ws "^7.1.2"
+
 rollup-plugin-livereload@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/rollup-plugin-livereload/-/rollup-plugin-livereload-1.0.4.tgz#480919211c699db85a532dabe9aa29035578f9c1"
