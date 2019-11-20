@@ -2,6 +2,7 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "devDependencies": {
+    "cross-env": "^6.0.3",
     "nollup": "^0.8.5",
     "rollup": "^1.26.3",
     "rollup-plugin-commonjs": "^10.0.0",
@@ -19,8 +20,8 @@
     "clean": "rm -rf public/bundle*",
     "build": "rollup -c",
     "dev:rollup": "rollup -c -w",
-    "dev:livereload": "LIVERELOAD=1 rollup -c -w",
-    "dev:nollup": "NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
+    "dev:livereload": "cross-env LIVERELOAD=1 rollup -c -w",
+    "dev:nollup": "cross-env NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
     "dev": "npm run dev:rollup",
     "start": "sirv public --single",
     "start:dev": "sirv public --single --dev"
