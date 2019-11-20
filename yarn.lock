@@ -1316,14 +1316,6 @@ rollup-plugin-commonjs@^10.0.0:
     resolve "^1.11.0"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-hot@^0.0.4-5:
-  version "0.0.4-5"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-hot/-/rollup-plugin-hot-0.0.4-5.tgz#23ea98fa050d7f9947ab518ceedabafaf3987c87"
-  dependencies:
-    cors "^2.8.5"
-    express "^4.17.1"
-    ws "^7.1.2"
-
 rollup-plugin-hot@^0.0.4-7:
   version "0.0.4-7"
   resolved "https://registry.yarnpkg.com/rollup-plugin-hot/-/rollup-plugin-hot-0.0.4-7.tgz#78cf7ba124ba6dfbe8b3ef25be338fbe718d01c4"
@@ -1349,12 +1341,12 @@ rollup-plugin-node-resolve@^5.2.0:
     resolve "^1.11.1"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-svelte-hot@^0.0.9-4:
-  version "0.0.9-4"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-svelte-hot/-/rollup-plugin-svelte-hot-0.0.9-4.tgz#f9cc77c0dc791e55507fdb8558d9aeba56a307bc"
+rollup-plugin-svelte-hot@^0.0.9-5:
+  version "0.0.9-5"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-svelte-hot/-/rollup-plugin-svelte-hot-0.0.9-5.tgz#19e0c2ef09523895013a103ccb0a568e74e67cb1"
   dependencies:
     require-relative "^0.8.7"
-    rollup-plugin-hot "^0.0.4-5"
+    rollup-plugin-hot "^0.0.4-7"
     rollup-pluginutils "^2.8.2"
     sourcemap-codec "^1.4.4"
     svelte-hmr "^0.1.1-0"
