@@ -1324,6 +1324,15 @@ rollup-plugin-hot@^0.0.4-5:
     express "^4.17.1"
     ws "^7.1.2"
 
+rollup-plugin-hot@^0.0.4-7:
+  version "0.0.4-7"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-hot/-/rollup-plugin-hot-0.0.4-7.tgz#78cf7ba124ba6dfbe8b3ef25be338fbe718d01c4"
+  dependencies:
+    cors "^2.8.5"
+    express "^4.17.1"
+    rollup-pluginutils "^2.8.2"
+    ws "^7.1.2"
+
 rollup-plugin-livereload@^1.0.0:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/rollup-plugin-livereload/-/rollup-plugin-livereload-1.0.4.tgz#480919211c699db85a532dabe9aa29035578f9c1"
@@ -1340,7 +1349,7 @@ rollup-plugin-node-resolve@^5.2.0:
     resolve "^1.11.1"
     rollup-pluginutils "^2.8.1"
 
-rollup-plugin-svelte-hot@0.0.9-4:
+rollup-plugin-svelte-hot@^0.0.9-4:
   version "0.0.9-4"
   resolved "https://registry.yarnpkg.com/rollup-plugin-svelte-hot/-/rollup-plugin-svelte-hot-0.0.9-4.tgz#f9cc77c0dc791e55507fdb8558d9aeba56a307bc"
   dependencies:
