@@ -93,6 +93,7 @@ function serve() {
 	let started = false;
 
 	return {
+    name: 'svelte/template:serve',
 		writeBundle() {
 			if (!started) {
 				started = true;
