@@ -59,7 +59,12 @@ npm run dev:livereload
 Rollup HMR is also aliased as `dev` so you can simply run:
 
 ```bash
+<<<<<<< HEAD
 npm run dev
+=======
+npm run build
+surge public my-project.surge.sh
+>>>>>>> upstream/master
 ```
 
 You can change the default `dev` script to your preferred method in the `scripts` section of `package.json`.

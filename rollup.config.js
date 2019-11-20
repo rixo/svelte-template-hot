@@ -4,7 +4,6 @@ import commonjs from 'rollup-plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr, { autoCreate } from 'rollup-plugin-hot'
-import rollup_start_dev from './rollup_start_dev'
 
 const watch = !!process.env.ROLLUP_WATCH
 // NOTE The NOLLUP env variable is picked by various HMR plugins to switch
@@ -24,7 +23,7 @@ export default {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: nollup ? 'bundle.js' : 'public/bundle.js',
+    file: nollup ? 'build/bundle.js' : 'public/build/bundle.js',
   },
   plugins: [
     svelte({
@@ -60,7 +59,7 @@ export default {
 
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
-    !production && !nollup && rollup_start_dev,
+    !production && serve(),
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
@@ -88,4 +87,21 @@ export default {
   watch: {
     clearScreen: false,
   },
+}
+
+function serve() {
+	let started = false;
+
+	return {
+		writeBundle() {
+			if (!started) {
+				started = true;
+
+				require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+					stdio: ['ignore', 'inherit', 'inherit'],
+					shell: true
+				});
+			}
+		}
+	};
 }

@@ -23,7 +23,7 @@
     "dev:livereload": "cross-env LIVERELOAD=1 rollup -c -w",
     "dev:nollup": "cross-env NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
     "dev": "npm run dev:rollup",
-    "start": "sirv public --single",
-    "start:dev": "sirv public --single --dev"
+    "start": "sirv public",
+    "start:dev": "sirv public --dev"
   }
 }
