@@ -33,7 +33,7 @@ export default {
       // a separate file — better for performance
       ...(!hot && {
         css: css => {
-          css.write('public/bundle.css')
+          css.write('public/build/bundle.css')
         },
       }),
       hot: hot && {
