@@ -6,7 +6,7 @@
     "nollup": "^0.8.5",
     "rollup": "^1.26.3",
     "rollup-plugin-commonjs": "^10.0.0",
-    "rollup-plugin-hot": "^0.0.6",
+    "rollup-plugin-hot": "^0.0.7",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-svelte-hot": "^0.0.11",
