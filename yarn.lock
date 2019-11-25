@@ -1340,9 +1340,9 @@ rollup-plugin-hot@^0.0.6:
     rollup-pluginutils "^2.8.2"
     ws "^7.1.2"
 
-rollup-plugin-hot@^0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-hot/-/rollup-plugin-hot-0.0.7.tgz#8bc6725a26dda6cb3604ef20aec31e10b79a3fe2"
+rollup-plugin-hot@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-hot/-/rollup-plugin-hot-0.0.8.tgz#e84b14b1be4acf3aeec55d47f277e15b4828c6b6"
   dependencies:
     cors "^2.8.5"
     express "^4.17.1"
