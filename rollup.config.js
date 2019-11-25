@@ -5,6 +5,16 @@ import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr, { autoCreate } from 'rollup-plugin-hot'
 
+// Set this to true to pass the --single flag to sirv (this serves your
+// index.html for any unmatched route, which is a requirement for SPA
+// routers using History API / pushState)
+//
+// NOTE This will have no effect when running with Nollup. For Nollup, you'd
+// have to add the --history-api-fallback yourself in your package.json
+// scripts (see: https://github.com/PepsRyuu/nollup/#nollup-options)
+//
+const spa = false
+
 // NOTE The NOLLUP env variable is picked by various HMR plugins to switch
 // in compat mode. You should not change its name (and set the env variable
 // yourself if you launch nollup with custom comands).
@@ -96,7 +106,11 @@ function serve() {
     writeBundle() {
       if (!started) {
         started = true
-        require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+        const flags = ['run', 'start', '--', '--dev']
+        if (spa) {
+          flags.push('--single')
+        }
+        require('child_process').spawn('npm', flags, {
           stdio: ['ignore', 'inherit', 'inherit'],
           shell: true,
         })
