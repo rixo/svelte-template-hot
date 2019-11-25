@@ -4,6 +4,7 @@ import commonjs from 'rollup-plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr, { autoCreate } from 'rollup-plugin-hot'
+import postcss from 'rollup-plugin-postcss'
 
 // Set this to true to pass the --single flag to sirv (this serves your
 // index.html for any unmatched route, which is a requirement for SPA
@@ -56,6 +57,73 @@ export default {
       },
     }),
 
+    postcss({
+      sourceMap: true,
+      ...production && {
+        minimize: true,
+        // see plugin docs for all available options:
+        // https://github.com/egoist/rollup-plugin-postcss
+      },
+      ...!hot && {
+        // actually write the file for prod or livereload
+        extract: 'public/build/global.css',
+      }
+    }),
+
+    // Just fooling around for HMR support of postcss plugin
+    {
+      load(id) {
+        if (/\bstyle-inject.es.js$/.test(id)) {
+          return `
+            import styleInject from 'style-inject'
+
+            export default (css, ref, id) => {
+              if ( ref === void 0 ) ref = {};
+              var insertAt = ref.insertAt;
+
+              document
+                .querySelectorAll('[data-module="' + id + '"]')
+                .forEach(el => el.remove())
+
+              if (!css || typeof document === 'undefined') { return; }
+
+              var head = document.head || document.getElementsByTagName('head')[0];
+              var style = document.createElement('style');
+              style.type = 'text/css';
+
+              style.dataset.module = id
+
+              if (insertAt === 'top') {
+                if (head.firstChild) {
+                  head.insertBefore(style, head.firstChild);
+                } else {
+                  head.appendChild(style);
+                }
+              } else {
+                head.appendChild(style);
+              }
+
+              if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+              } else {
+                style.appendChild(document.createTextNode(css));
+              }
+            }
+          `
+        }
+        return null
+      },
+      transform(code, id) {
+        if (/\.css$/.test(id)) {
+          code = code.replace(
+            'styleInject(css)',
+            `styleInject(css, undefined, ${JSON.stringify(id)})`
+          )
+          return { code, map: null }
+        }
+      },
+    },
+
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
     // some cases you'll need additional configuration —
@@ -82,17 +150,19 @@ export default {
     // Automatically create missing imported files. This helps keeping
     // the HMR server alive, because Rollup watch tends to crash and
     // hang indefinitely after you've tried to import a missing file.
-    hot && autoCreate({
-      include: 'src/**/*',
-      // Set false to prevent recreating a file that has just been
-      // deleted (Rollup watch will crash when you do that though).
-      recreate: true,
-    }),
+    hot &&
+      autoCreate({
+        include: 'src/**/*',
+        // Set false to prevent recreating a file that has just been
+        // deleted (Rollup watch will crash when you do that though).
+        recreate: true,
+      }),
 
-    hot && hmr({
-      public: 'public',
-      inMemory: true
-    }),
+    hot &&
+      hmr({
+        public: 'public',
+        inMemory: false,
+      }),
   ],
   watch: {
     clearScreen: false,
