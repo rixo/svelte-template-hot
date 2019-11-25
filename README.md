@@ -16,6 +16,12 @@ cd svelte-app
 npm install
 ```
 
+Run the build script a first time, in order to avoid 404 errors about missing `bundle.css` in the browser:
+
+```bash
+npm run build
+```
+
 ## Quick start
 
 ```bash
