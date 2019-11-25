@@ -161,7 +161,7 @@ export default {
     hot &&
       hmr({
         public: 'public',
-        inMemory: false,
+        inMemory: true,
       }),
   ],
   watch: {
