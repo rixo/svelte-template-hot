@@ -5,17 +5,17 @@ import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr, { autoCreate } from 'rollup-plugin-hot'
 
-const watch = !!process.env.ROLLUP_WATCH
 // NOTE The NOLLUP env variable is picked by various HMR plugins to switch
 // in compat mode. You should not change its name (and set the env variable
 // yourself if you launch nollup with custom comands).
 const nollup = !!process.env.NOLLUP
+const watch = nollup || !!process.env.ROLLUP_WATCH
 const useLiveReload = !!process.env.LIVERELOAD
 
-const dev = watch || nollup || useLiveReload
+const dev = watch || useLiveReload
 const production = !dev
 
-const hot = nollup || (watch && !useLiveReload)
+const hot = watch && !useLiveReload
 
 export default {
   input: 'src/main.js',
@@ -59,7 +59,7 @@ export default {
 
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
-    !production && serve(),
+    dev && !nollup && serve(),
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
@@ -79,9 +79,9 @@ export default {
       recreate: true,
     }),
 
-    hot && !nollup && hmr({
-      public: `public`,
-      inMemory: true,
+    hot && hmr({
+      public: 'public',
+      inMemory: true
     }),
   ],
   watch: {
@@ -90,19 +90,17 @@ export default {
 }
 
 function serve() {
-	let started = false;
-
-	return {
+  let started = false
+  return {
     name: 'svelte/template:serve',
-		writeBundle() {
-			if (!started) {
-				started = true;
-
-				require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-					stdio: ['ignore', 'inherit', 'inherit'],
-					shell: true
-				});
-			}
-		}
-	};
+    writeBundle() {
+      if (!started) {
+        started = true
+        require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
+          stdio: ['ignore', 'inherit', 'inherit'],
+          shell: true,
+        })
+      }
+    },
+  }
 }
