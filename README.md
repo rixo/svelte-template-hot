@@ -1,10 +1,14 @@
 # Svelte Template Hot
 
-This is a copy of official [Svelte template](https://github.com/sveltejs/template) with added HMR support (more or less experimental). It lives at https://github.com/rixo/svelte-template-hot.
+This is a copy of official [Svelte template](https://github.com/sveltejs/template) with added HMR support. It lives at https://github.com/rixo/svelte-template-hot.
 
 Progress of Svelte HMR support can be tracked in [this issue](https://github.com/sveltejs/svelte/issues/3632).
 
 This template aims to remain as close to the official template as possible. Please refer to official docs for general usage. For HMR specific stuff, see bellow.
+
+**:warning: Experimental :warning:**
+
+This HMR implementation relies on Svelte's private & non documented API. This means that it could stop working with any new version of Svelte.
 
 ## Installation
 
