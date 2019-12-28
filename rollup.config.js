@@ -89,9 +89,14 @@ export default {
       recreate: true,
     }),
 
-    hot && hmr({
+    hmr({
       public: 'public',
-      inMemory: true
+      inMemory: true,
+      // This is needed, otherwise Terser (in npm run build) chokes
+      // on import.meta. With this option, the plugin will replace
+      // import.meta.hot in your code with module.hot, and will do
+      // nothing else.
+      compatModuleHot: !hot,
     }),
   ],
   watch: {
