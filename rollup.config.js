@@ -1,6 +1,6 @@
 import svelte from 'rollup-plugin-svelte-hot'
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr, { autoCreate } from 'rollup-plugin-hot'
@@ -19,7 +19,7 @@ const spa = false
 // in compat mode. You should not change its name (and set the env variable
 // yourself if you launch nollup with custom comands).
 const nollup = !!process.env.NOLLUP
-const watch = nollup || !!process.env.ROLLUP_WATCH
+const watch = !!process.env.ROLLUP_WATCH
 const useLiveReload = !!process.env.LIVERELOAD
 
 const dev = watch || useLiveReload
@@ -33,7 +33,7 @@ export default {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: nollup ? 'build/bundle.js' : 'public/build/bundle.js',
+    file: 'public/build/bundle.js',
   },
   plugins: [
     svelte({
@@ -82,12 +82,13 @@ export default {
     // Automatically create missing imported files. This helps keeping
     // the HMR server alive, because Rollup watch tends to crash and
     // hang indefinitely after you've tried to import a missing file.
-    hot && autoCreate({
-      include: 'src/**/*',
-      // Set false to prevent recreating a file that has just been
-      // deleted (Rollup watch will crash when you do that though).
-      recreate: true,
-    }),
+    hot &&
+      autoCreate({
+        include: 'src/**/*',
+        // Set false to prevent recreating a file that has just been
+        // deleted (Rollup watch will crash when you do that though).
+        recreate: true,
+      }),
 
     hmr({
       public: 'public',

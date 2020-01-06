@@ -5,7 +5,7 @@
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^6.0.0",
     "cross-env": "^6.0.3",
-    "nollup": "^0.8.5",
+    "nollup": "^0.10.0",
     "rollup": "^1.26.3",
     "rollup-plugin-hot": "^0.0.8",
     "rollup-plugin-livereload": "^1.0.0",
