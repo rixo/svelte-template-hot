@@ -8,7 +8,7 @@
     "nollup": "^0.10.0",
     "rollup": "^1.26.3",
     "rollup-plugin-hot": "^0.0.8",
-    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-livereload": "rixo/rollup-plugin-livereload#fix-rollup-restart-dist",
     "rollup-plugin-svelte-hot": "^0.1.1",
     "rollup-plugin-terser": "^5.1.2",
     "svelte": "~3.16.7"
