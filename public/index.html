@@ -10,7 +10,16 @@
 	<link rel='stylesheet' href='/global.css'>
 	<link rel='stylesheet' href='/build/bundle.css'>
 
-	<script defer src='/build/bundle.js'></script>
+	<!-- You only need this line if you don't need to support legacy browsers -->
+	<script defer type="module" src="/build/main.js"></script>
+
+	<!-- OR: legacy browsers support with dimport:  -->
+	<!--
+	<script defer type="module" src="https://unpkg.com/dimport?module"
+		data-main="/build/main.js"></script>
+	<script defer type="nomodule" src="https://unpkg.com/dimport/nomodule"
+		data-main="/build/main.js"></script>
+	-->
 </head>
 
 <body>
