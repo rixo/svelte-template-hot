@@ -2,6 +2,4 @@
   import Cmp from './Cmp.svelte'
 </script>
 
-<Cmp color="skyblue">
-  <div>I am Foo</div>
-</Cmp>
+<Cmp color="skyblue" name="Foo" />
