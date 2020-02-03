@@ -135,7 +135,6 @@ export default {
       },
       transform(code, id) {
         if (/\.s?css$/.test(id)) {
-          console.log('transform', id)
           code = code.replace(
             'styleInject(css)',
             `styleInject(css, undefined, ${JSON.stringify(id)})`
