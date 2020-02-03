@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
 import hmr, { autoCreate } from 'rollup-plugin-hot'
+import postcss from 'rollup-plugin-postcss'
 
 // Set this to true to pass the --single flag to sirv (this serves your
 // index.html for any unmatched route, which is a requirement for SPA
@@ -66,6 +67,27 @@ export default {
       // rollup-plugin-svelte-hot automatically resolves & dedup svelte
     }),
     commonjs(),
+
+    postcss({
+      sourceMap: true,
+      ...(production && {
+        minimize: true,
+        // see plugin docs for all available options:
+        // https://github.com/egoist/rollup-plugin-postcss
+      }),
+      ...(!hot && {
+        // actually write the file for prod or livereload
+        extract: 'public/build/global.css',
+      }),
+      use: [
+        [
+          'sass',
+          {
+            includePaths: ['./theme', './node_modules'],
+          },
+        ],
+      ],
+    }),
 
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
