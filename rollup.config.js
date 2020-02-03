@@ -89,6 +89,62 @@ export default {
       ],
     }),
 
+    // Dirty hack to get hot reloading of CSS/SCSS from postcss
+    {
+      name: 'postcss-hot',
+      load(id) {
+        if (/\bstyle-inject.es.js$/.test(id)) {
+          return `
+            function styleInject(css, ref, id) {
+              if ( ref === void 0 ) ref = {};
+              var insertAt = ref.insertAt;
+
+              document
+                .querySelectorAll('[data-module="' + id + '"]')
+                .forEach(el => el.remove())
+
+              if (!css || typeof document === 'undefined') { return; }
+
+              var head = document.head || document.getElementsByTagName('head')[0];
+              var style = document.createElement('style');
+              style.type = 'text/css';
+
+              style.dataset.module = id
+
+              if (insertAt === 'top') {
+                if (head.firstChild) {
+                  head.insertBefore(style, head.firstChild);
+                } else {
+                  head.appendChild(style);
+                }
+              } else {
+                head.appendChild(style);
+              }
+
+              if (style.styleSheet) {
+                style.styleSheet.cssText = css;
+              } else {
+                style.appendChild(document.createTextNode(css));
+              }
+            }
+
+            export default styleInject;
+          `
+        }
+        return null
+      },
+      transform(code, id) {
+        if (/\.s?css$/.test(id)) {
+          console.log('transform', id)
+          code = code.replace(
+            'styleInject(css)',
+            `styleInject(css, undefined, ${JSON.stringify(id)})`
+          )
+          return { code, map: null }
+        }
+      },
+    },
+
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
     dev && !nollup && serve(),
