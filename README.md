@@ -10,7 +10,9 @@ This HMR implementation relies on Svelte's private & non documented API. This me
 
 Progress of Svelte HMR support can be tracked in [this issue](https://github.com/sveltejs/svelte/issues/3632).
 
-**NOTE** The template pins the major version of Svelte, using the [tilde comparator](https://docs.npmjs.com/misc/semver#tilde-ranges-123-12-1) because, in practice, HMR breakages tend to only happen with new major versions of Svelte. In your app, you can change this to your liking -- because you might be more interested in last version of Svelte than working HMR, or be wise and pin the exact versions of all you dependencies.
+**Update 2020-02-24** We're [making progress](https://github.com/sveltejs/svelte/pull/3822) :)
+
+**NOTE** This template pins the minor version of Svelte in `package.json`, using the [tilde comparator](https://docs.npmjs.com/misc/semver#tilde-ranges-123-12-1) because, in practice, HMR breakages tend to only happen with new minor versions of Svelte (not patch). And I don't want people to download a hot template with HMR  In your app, you can change this to your liking -- because you might be more interested in last version of Svelte than stable HMR, or be wise and pin the exact versions of all you dependencies.
 
 ## Installation
 
@@ -40,11 +42,11 @@ Navigate to [localhost:5000](http://localhost:5000). You should see your app run
 
 HMR is supported both with [Nollup](https://github.com/PepsRyuu/nollup) or with Rollup itself with (very experimental) [rollup-plugin-hot](https://github.com/rixo/rollup-plugin-hot).
 
-Nollup implements the shortest possible path from a file change to the module reload in the browser and is all in-memory. Said otherwise, it is insanely fast. Also, it has been around for some time so it is quite battle tested already.
+Nollup implements the shortest possible path from a file change to the module reloaded in the browser and is all in-memory. Said otherwise, it is insanely fast. Also, it has been around for some time so it is quite battle tested already.
 
-The Rollup plugin on the other hand is still little more than a proof of concept by now, but it has better sourcemap support and error reporting.
+The Rollup plugin on the other hand is still little more than a proof of concept by now, but it has better sourcemap support and error reporting (according to my own tastes at least).
 
-Support for both Nollup and Rollup HMR is provided by (also pretty experimental) [rollup-plugin-svelte-hot](https://github.com/rixo/rollup-plugin-svelte-hot). Please report issues regarding HMR in [this plugin's tracker](https://github.com/rixo/rollup-plugin-svelte-hot/issues). Or [the current project](https://github.com/rixo/svelte-template-hot/issues) might make more sense. You be the judge.
+Support for both Nollup and Rollup HMR is provided by [rollup-plugin-svelte-hot](https://github.com/rixo/rollup-plugin-svelte-hot). Please report issues regarding HMR in [this plugin's tracker](https://github.com/rixo/rollup-plugin-svelte-hot/issues). Or [this template's project](https://github.com/rixo/svelte-template-hot/issues) might make more sense. You be the judge.
 
 ### Start HMR server with Nollup
 
