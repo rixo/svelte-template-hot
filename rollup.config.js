@@ -37,22 +37,27 @@ export default {
   },
   plugins: [
     svelte({
-      // enable run-time checks when not in production
+      // Enable run-time checks when not in production
       dev: !production,
-      // we'll extract any component CSS out into
-      // a separate file — better for performance
+      // We'll extract any component CSS out into a separate file — better for
+      // performance
+      // NOTE extracting CSS doesn't work with HMR, so we're inlining when hot
       ...(!hot && {
         css: css => {
           css.write('public/build/bundle.css')
         },
       }),
       hot: hot && {
-        // optimistic will try to recover from runtime
+        // Optimistic will try to recover from runtime
         // errors during component init
         optimistic: true,
-        // turn on to disable preservation of local component
+        // Turn on to disable preservation of local component
         // state -- i.e. non exported `let` variables
         noPreserveState: false,
+
+        // See docs of rollup-plugin-svelte-hot for all available options:
+        //
+        // https://github.com/rixo/rollup-plugin-svelte-hot#usage
       },
     }),
 
