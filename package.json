@@ -4,6 +4,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.1.1",
+    "@sveltech/routify": "^1.0.6",
     "cross-env": "^6.0.3",
     "nollup": "^0.10.6",
     "rollup": "^1.31.1",
@@ -18,6 +19,10 @@
   },
   "scripts": {
     "build": "rollup -c",
+    "svench": "routify --extensions svench --pages src --child-process='svench:start'",
+    "svench:livereload": "routify --extensions svench --pages src --child-process='svench:start:livereload'",
+    "svench:start": "SVENCH=1 rollup -c -w",
+    "svench:start:livereload": "SVENCH=1 LIVERELOAD=1 rollup -c -w",
     "dev:rollup": "rollup -c -w",
     "dev:livereload": "cross-env LIVERELOAD=1 rollup -c -w",
     "dev:nollup": "cross-env NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
