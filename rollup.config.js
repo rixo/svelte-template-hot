@@ -68,7 +68,7 @@ export default {
     // https://github.com/rollup/rollup-plugin-commonjs
     resolve({
       browser: true,
-      // rollup-plugin-svelte-hot automatically resolves & dedup svelte
+			dedupe: ['svelte']
     }),
     commonjs(),
 
