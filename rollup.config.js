@@ -41,12 +41,11 @@ export default {
       dev: !production,
       // We'll extract any component CSS out into a separate file — better for
       // performance
-      // NOTE extracting CSS doesn't work with HMR, so we're inlining when hot
-      ...(!hot && {
-        css: css => {
-          css.write('public/build/bundle.css')
-        },
-      }),
+      // NOTE when hot option is enabled, this gets automatically be turned to
+      // false because CSS extraction doesn't work with HMR currently
+      css: css => {
+        css.write('public/build/bundle.css')
+      },
       hot: hot && {
         // Optimistic will try to recover from runtime
         // errors during component init
