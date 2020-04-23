@@ -83,17 +83,6 @@ export default {
     // instead of npm run dev), minify
     production && terser(),
 
-    // Automatically create missing imported files. This helps keeping
-    // the HMR server alive, because Rollup watch tends to crash and
-    // hang indefinitely after you've tried to import a missing file.
-    hot &&
-      autoCreate({
-        include: 'src/**/*',
-        // Set false to prevent recreating a file that has just been
-        // deleted (Rollup watch will crash when you do that though).
-        recreate: true,
-      }),
-
     hmr({
       public: 'public',
       inMemory: true,
