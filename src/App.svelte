@@ -1,5 +1,9 @@
 <script>
   export let name
+
+  debugger
+
+  debugger
 </script>
 
 <main>
