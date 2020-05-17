@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import livereload from 'rollup-plugin-livereload'
 import { terser } from 'rollup-plugin-terser'
-import hmr, { autoCreate } from 'rollup-plugin-hot'
+import hmr from 'rollup-plugin-hot'
 
 // Set this to true to pass the --single flag to sirv (this serves your
 // index.html for any unmatched route, which is a requirement for SPA
@@ -67,7 +67,7 @@ export default {
     // https://github.com/rollup/rollup-plugin-commonjs
     resolve({
       browser: true,
-			dedupe: ['svelte']
+      dedupe: ['svelte'],
     }),
     commonjs(),
 
@@ -95,6 +95,7 @@ export default {
   ],
   watch: {
     clearScreen: false,
+    // skipWrite: true,
   },
 }
 
