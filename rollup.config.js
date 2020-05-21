@@ -90,6 +90,8 @@ export default {
       // Default host for the HMR server is localhost, change this option if
       // you want to serve over the network
       // host: '0.0.0.0',
+      // You can also change the default HMR server port, if you fancy
+      // port: '12345'
 
       // This is needed, otherwise Terser (in npm run build) chokes
       // on import.meta. With this option, the plugin will replace
