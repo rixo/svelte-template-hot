@@ -5,7 +5,7 @@
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "cross-env": "^6.0.3",
-    "nollup": "^0.10.6",
+    "nollup": "^0.12.0",
     "rollup": "^2.10.2",
     "rollup-plugin-hot": "^0.0.31",
     "rollup-plugin-livereload": "^1.0.0",
@@ -21,7 +21,7 @@
     "dev:rollup": "rollup -c -w",
     "dev:livereload": "cross-env LIVERELOAD=1 rollup -c -w",
     "dev:nollup": "cross-env NOLLUP=1 nollup -c --hot --port 5000 --content-base ./public",
-    "dev": "npm run dev:rollup",
+    "dev": "npm run dev:nollup",
     "start": "sirv public"
   }
 }
