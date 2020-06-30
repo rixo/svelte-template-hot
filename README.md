@@ -70,10 +70,20 @@ npm run dev:livereload
 
 ### Start with default method
 
-Rollup HMR is also aliased as `dev` so you can simply run:
+Nollup HMR is also aliased as `dev` so you can simply run:
 
 ```bash
 npm run dev
 ```
 
 You can change the default `dev` script to your preferred method in the `scripts` section of `package.json`.
+
+**2020-06-29** Nollup has been made the default `dev` script (instead of Rollup) because just released Nollup 0.12.0 fixes support for Svelte sourcemaps and dynamic imports, and Nollup is monstrously fast (especially on the most important metrics, that is rebuild time in big projects)!
+
+The suggested workflow is to use Nollup for dev and enjoy instant feedback loop. If you need a plugin that doesn't work with Nollup, or if you are in a situation that Nollup makes harder to debug (mainly because of it running your code through eval), you can fallback on `npm run dev:rollup` (HMR with rollup-plugin-hot). If you have a bug that you suspect might be caused by HMR or HMR code transform, confirm by turning back to `npm run dev:livereload`.
+
+### Build
+
+```bash
+npm run build
+```
