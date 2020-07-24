@@ -19,7 +19,7 @@
     "build": "rollup -c",
     "dev:rollup": "rollup -c -w",
     "dev:livereload": "rollup -c -w --environment LIVERELOAD",
-    "dev:nollup": "nollup -c --environment NOLLUP --hot --port 5000 --content-base ./public",
+    "dev:nollup": "nollup -c --hot --port 5000 --content-base ./public",
     "dev": "npm run dev:nollup",
     "start": "sirv public"
   }
