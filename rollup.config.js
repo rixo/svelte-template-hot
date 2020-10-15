@@ -18,14 +18,14 @@ const spa = false
 // NOTE The NOLLUP env variable is picked by various HMR plugins to switch
 // in compat mode. You should not change its name (and set the env variable
 // yourself if you launch nollup with custom comands).
-const nollup = !!process.env.NOLLUP
-const watch = !!process.env.ROLLUP_WATCH
-const useLiveReload = !!process.env.LIVERELOAD
+const isNollup = !!process.env.NOLLUP
+const isWatch = !!process.env.ROLLUP_WATCH
+const isLiveReload = !!process.env.LIVERELOAD
 
-const dev = watch || useLiveReload
-const production = !dev
+const isDev = isWatch || isLiveReload
+const isProduction = !isDev
 
-const hot = watch && !useLiveReload
+const isHot = isWatch && !isLiveReload
 
 function serve() {
   let server
@@ -64,7 +64,7 @@ export default {
   plugins: [
     svelte({
       // enable run-time checks when not in production
-      dev: !production,
+      dev: !isProduction,
       // we'll extract any component CSS out into
       // a separate file - better for performance
       // NOTE when hot option is enabled, this gets automatically be turned to
@@ -72,7 +72,7 @@ export default {
       css: css => {
         css.write('public/build/bundle.css')
       },
-      hot: hot && {
+      hot: isHot && {
         // Optimistic will try to recover from runtime
         // errors during component init
         optimistic: true,
@@ -99,15 +99,15 @@ export default {
 
     // In dev mode, call `npm run start` once
     // the bundle has been generated
-    dev && !nollup && serve(),
+    isDev && !isNollup && serve(),
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
-    useLiveReload && livereload('public'),
+    isLiveReload && livereload('public'),
 
     // If we're building for production (npm run build
     // instead of npm run dev), minify
-    production && terser(),
+    isProduction && terser(),
 
     hmr({
       public: 'public',
@@ -123,7 +123,7 @@ export default {
       // on import.meta. With this option, the plugin will replace
       // import.meta.hot in your code with module.hot, and will do
       // nothing else.
-      compatModuleHot: !hot,
+      compatModuleHot: !isHot,
     }),
   ],
   watch: {
