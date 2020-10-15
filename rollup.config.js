@@ -27,6 +27,32 @@ const production = !dev
 
 const hot = watch && !useLiveReload
 
+function serve() {
+  let server
+
+  function toExit() {
+    if (server) server.kill(0)
+  }
+
+  return {
+    name: 'svelte/template:serve',
+    writeBundle() {
+      if (server) return
+      server = require('child_process').spawn(
+        'npm',
+        ['run', 'start', '--', '--dev'],
+        {
+          stdio: ['ignore', 'inherit', 'inherit'],
+          shell: true,
+        }
+      )
+
+      process.on('SIGTERM', toExit)
+      process.on('exit', toExit)
+    },
+  }
+}
+
 export default {
   input: 'src/main.js',
   output: {
@@ -37,10 +63,10 @@ export default {
   },
   plugins: [
     svelte({
-      // Enable run-time checks when not in production
+      // enable run-time checks when not in production
       dev: !production,
-      // We'll extract any component CSS out into a separate file — better for
-      // performance
+      // we'll extract any component CSS out into
+      // a separate file - better for performance
       // NOTE when hot option is enabled, this gets automatically be turned to
       // false because CSS extraction doesn't work with HMR currently
       css: css => {
@@ -62,16 +88,16 @@ export default {
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
-    // some cases you'll need additional configuration —
+    // some cases you'll need additional configuration -
     // consult the documentation for details:
-    // https://github.com/rollup/rollup-plugin-commonjs
+    // https://github.com/rollup/plugins/tree/master/packages/commonjs
     resolve({
       browser: true,
       dedupe: ['svelte'],
     }),
     commonjs(),
 
-    // In dev mode, call `npm run start:dev` once
+    // In dev mode, call `npm run start` once
     // the bundle has been generated
     dev && !nollup && serve(),
 
@@ -102,26 +128,5 @@ export default {
   ],
   watch: {
     clearScreen: false,
-    // skipWrite: true,
   },
-}
-
-function serve() {
-  let started = false
-  return {
-    name: 'svelte/template:serve',
-    writeBundle() {
-      if (!started) {
-        started = true
-        const flags = ['run', 'start', '--', '--dev']
-        if (spa) {
-          flags.push('--single')
-        }
-        require('child_process').spawn('npm', flags, {
-          stdio: ['ignore', 'inherit', 'inherit'],
-          shell: true,
-        })
-      }
-    },
-  }
 }
