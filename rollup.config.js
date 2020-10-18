@@ -35,7 +35,6 @@ function serve() {
   }
 
   return {
-    name: 'svelte/template:serve',
     writeBundle() {
       if (server) return
       server = require('child_process').spawn(
