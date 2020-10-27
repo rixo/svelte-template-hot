@@ -67,10 +67,10 @@ export default {
       dev: !isProduction,
       // we'll extract any component CSS out into
       // a separate file - better for performance
-      // NOTE when hot option is enabled, this gets automatically be turned to
-      // false because CSS extraction doesn't work with HMR currently
+      // NOTE when hot option is enabled, a blank file will be written to
+      // avoid CSS rules conflicting with HMR injected ones
       css: css => {
-        css.write('public/build/bundle.css')
+        css.write(isNollup ? 'build/bundle.css' : 'bundle.css')
       },
       hot: isHot && {
         // Optimistic will try to recover from runtime
