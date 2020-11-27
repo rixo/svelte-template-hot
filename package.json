@@ -8,7 +8,8 @@
     "rollup": "^2.3.4",
     "rollup-plugin-hot": "^0.1.0",
     "rollup-plugin-livereload": "^2.0.0",
-    "rollup-plugin-svelte-hot": "^0.13.0",
+    "rollup-plugin-postcss-hot": "^0.0.5",
+    "rollup-plugin-svelte": "rixo/rollup-plugin-svelte#svelte-hmr",
     "rollup-plugin-terser": "^7.0.0",
     "svelte": "^3.0.0"
   },
