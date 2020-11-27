@@ -3,7 +3,7 @@
 
   export let name
 
-	let counter = 0
+	let counter = 0 // @hmr:keep
 
 	onMount(() => {
 		const interval = setInterval(() => {
@@ -22,7 +22,7 @@
     learn how to build Svelte apps.
   </p>
 	<p>
-		{counter}
+		This page has been open for {counter}s.
 	</p>
 </main>
 
