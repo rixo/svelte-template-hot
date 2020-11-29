@@ -103,22 +103,22 @@ export default {
     // instead of npm run dev), minify
     isProduction && terser(),
 
-    hmr({
-      public: 'public',
-      inMemory: true,
-
-      // Default host for the HMR server is localhost, change this option if
-      // you want to serve over the network
-      // host: '0.0.0.0',
-      // You can also change the default HMR server port, if you fancy
-      // port: '12345'
-
-      // This is needed, otherwise Terser (in npm run build) chokes
-      // on import.meta. With this option, the plugin will replace
-      // import.meta.hot in your code with module.hot, and will do
-      // nothing else.
-      compatModuleHot: !isHot,
-    }),
+    // hmr({
+    //   public: 'public',
+    //   inMemory: true,
+    //
+    //   // Default host for the HMR server is localhost, change this option if
+    //   // you want to serve over the network
+    //   // host: '0.0.0.0',
+    //   // You can also change the default HMR server port, if you fancy
+    //   // port: '12345'
+    //
+    //   // This is needed, otherwise Terser (in npm run build) chokes
+    //   // on import.meta. With this option, the plugin will replace
+    //   // import.meta.hot in your code with module.hot, and will do
+    //   // nothing else.
+    //   compatModuleHot: !isHot,
+    // }),
   ],
   watch: {
     clearScreen: false,
