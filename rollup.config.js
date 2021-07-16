@@ -10,16 +10,13 @@ import * as path from 'path'
 
 const test = process.env.NODE_ENV === 'test'
 const watch = !!process.env.ROLLUP_WATCH
-// NOTE The NOLLUP env variable is picked by various HMR plugins to switch
-// in compat mode. You should not change its name (and set the env variable
-// yourself if you launch nollup with custom comands).
-const nollup = !!process.env.NOLLUP
+const isNollup = !!process.env.NOLLUP
 const useLiveReload = !!process.env.LIVERELOAD
 
-const dev = watch || nollup || useLiveReload
+const dev = watch || isNollup || useLiveReload
 const production = !dev
 
-const hot = nollup || (watch && !useLiveReload)
+const hot = isNollup || (watch && !useLiveReload)
 
 const noPreserveState = !!process.env.NO_PRESERVE_STATE
 const optimistic = !!process.env.OPTIMISTIC
@@ -29,13 +26,22 @@ const root = fs.realpathSync(__dirname)
 
 const abs = p => root + '/' + p
 
+// mute Nollup compiled output
+if (process.env.MUTE_NOLLUP !== '0') {
+  const { log } = console
+  console.log = (...args) => {
+    if (String(args[1]).startsWith('[Nollup] Compiled in')) return
+    return log.apply(console, args)
+  }
+}
+
 export default {
   input: abs`src/main.js`,
   output: {
     sourcemap: true,
     format: 'iife',
     name: 'app',
-    file: nollup ? 'bundle.js' : abs`public/bundle.js`,
+    file: 'public/build/bundle.js',
   },
   plugins: [
     svelte({
@@ -43,11 +49,10 @@ export default {
       dev: !production,
       // we'll extract any component CSS out into
       // a separate file — better for performance
-      ...(!hot && {
-        css: css => {
-          css.write('public/bundle.css')
-        },
-      }),
+      css: css => {
+        css.write(isNollup ? 'build/bundle.css' : 'bundle.css')
+      },
+      accessors: true,
       hot: hot && {
         // expose test hooks from the plugin
         test,
@@ -73,7 +78,7 @@ export default {
 
     // In dev mode, call `npm run start:dev` once
     // the bundle has been generated
-    !production && !test && !nollup && rollup_start_dev,
+    !production && !test && !isNollup && rollup_start_dev,
 
     // Watch the `public` directory and refresh the
     // browser on changes when not in production
@@ -86,17 +91,19 @@ export default {
     // Automatically create missing imported files. This helps keeping
     // the HMR server alive, because Rollup watch tends to crash and
     // hang indefinitely after you've tried to import a missing file.
-    hot && autoCreate({
-      include: 'src/**/*',
-      // Set false to prevent recreating a file that has just been
-      // deleted (Rollup watch will crash when you do that though).
-      recreate: true,
-    }),
+    hot &&
+      autoCreate({
+        include: 'src/**/*',
+        // Set false to prevent recreating a file that has just been
+        // deleted (Rollup watch will crash when you do that though).
+        recreate: true,
+      }),
 
-    hot && hmr({
-      public: abs`public`,
-      inMemory: true,
-    }),
+    hot &&
+      hmr({
+        public: abs`public`,
+        inMemory: true,
+      }),
   ],
   watch: {
     clearScreen: false,
